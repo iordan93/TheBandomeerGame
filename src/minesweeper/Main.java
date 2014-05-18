@@ -4,13 +4,16 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("welcome_screen.fxml"));
+        Font.loadFont(getClass().getResource("res/fonts/segoeui.ttf").toExternalForm(), 10);
+
+        Parent root = FXMLLoader.load(getClass().getResource("welcomeScreen.fxml"));
         primaryStage.setResizable(false);
         primaryStage.setTitle(Settings.GAME_NAME);
         primaryStage.setScene(new Scene(root));
