@@ -4,20 +4,24 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuItem?>
-<GridPane fx:controller="minesweeper.MainGameController"
-          xmlns:fx="http://javafx.com/fxml" hgap="10" vgap="10" stylesheets="@res/stylesheets/mainWindow.css"
-          minWidth="300" alignment="CENTER">
-    <padding>
-        <Insets bottom="30" top="30" left="30" right="30"/>
-    </padding>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane fx:controller="minesweeper.MainGameController"
+          xmlns:fx="http://javafx.com/fxml" stylesheets="@res/stylesheets/mainWindow.css"
+          minWidth="300">
     <MenuBar>
-        <menus>
-            <Menu text="Game">
-                <items>
-                    <MenuItem text="New Game" />
-                </items>
-            </Menu>
-            <Menu text="Help"></Menu>
-        </menus>
+        <Menu text="GAME">
+            <MenuItem text="New Game"/>
+            <SeparatorMenuItem/>
+            <MenuItem text="Statistics"/>
+            <MenuItem text="Options"/>
+            <SeparatorMenuItem/>
+            <MenuItem text="Exit"/>
+        </Menu>
+        <Menu text="HELP">
+            <MenuItem text="Instructions"/>
+            <SeparatorMenuItem/>
+            <MenuItem text="About"/>
+        </Menu>
     </MenuBar>
-</GridPane>
+</AnchorPane>

@@ -21,6 +21,7 @@ public class WelcomeScreenController {
         Parent root = FXMLLoader.load(getClass().getResource("mainWindow.fxml"));
         Stage stage = new Stage();
         stage.setTitle(Settings.GAME_NAME);
+        stage.setResizable(false);
         stage.setScene(new Scene(root));
         stage.show();
 
