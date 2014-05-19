@@ -3,8 +3,8 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane fx:controller="minesweeper.MainGameController"
-          xmlns:fx="http://javafx.com/fxml" stylesheets="@res/stylesheets/mainWindow.css"
+<AnchorPane fx:controller="minesweeper.controllers.MainGameController"
+          xmlns:fx="http://javafx.com/fxml" stylesheets="@../res/stylesheets/mainWindow.css"
           minWidth="300">
     <MenuBar>
         <Menu text="GAME">

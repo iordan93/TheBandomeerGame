@@ -1,5 +1,6 @@
-package minesweeper;
+package minesweeper.models;
 
+import minesweeper.Settings;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class Cell {

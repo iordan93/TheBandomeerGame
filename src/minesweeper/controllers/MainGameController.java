@@ -1,5 +1,4 @@
-package minesweeper;
+package minesweeper.controllers;
 
 public class MainGameController {
-    
 }

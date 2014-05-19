@@ -1,4 +1,4 @@
-package minesweeper;
+package minesweeper.models;
 
 public enum GameState {
     NEW,
