@@ -1,4 +1,4 @@
-package minesweeper;
+package minesweeper.models;
 
 public interface IMineFieldUpdater {
     void updateCell(Cell cell);
