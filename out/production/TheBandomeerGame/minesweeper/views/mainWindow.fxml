@@ -1,0 +1,21 @@
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane fx:controller="minesweeper.controllers.MainGameController"
+          xmlns:fx="http://javafx.com/fxml" stylesheets="@../res/stylesheets/mainWindow.css"
+          minWidth="300">
+    <MenuBar>
+        <Menu text="GAME">
+            <MenuItem text="New Game"/>
+            <SeparatorMenuItem/>
+            <MenuItem text="Statistics"/>
+            <MenuItem text="Options"/>
+            <SeparatorMenuItem/>
+            <MenuItem text="Exit"/>
+        </Menu>
+        <Menu text="HELP">
+            <MenuItem text="Instructions"/>
+            <SeparatorMenuItem/>
+            <MenuItem text="About"/>
+        </Menu>
+    </MenuBar>
+</AnchorPane>

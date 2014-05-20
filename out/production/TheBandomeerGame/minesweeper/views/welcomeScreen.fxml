@@ -1,0 +1,25 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<GridPane fx:controller="minesweeper.controllers.WelcomeScreenController"
+          xmlns:fx="http://javafx.com/fxml" hgap="10" vgap="10" stylesheets="@../res/stylesheets/welcomeScreen.css"
+
+          minWidth="300" alignment="CENTER">
+    <padding>
+        <Insets bottom="30" top="30" left="30" right="30"/>
+    </padding>
+    <Text text="Bandomeer" focusTraversable="false" styleClass="heading" GridPane.columnIndex="0"
+          GridPane.rowIndex="0" GridPane.halignment="CENTER"/>
+    <Text text="Minesweeper" focusTraversable="false" styleClass="subheading" GridPane.columnIndex="0"
+          GridPane.rowIndex="1" GridPane.halignment="CENTER"/>
+    <Separator GridPane.columnIndex="0" GridPane.rowIndex="2" halignment="CENTER"/>
+    <Button fx:id="newGame" text="New game" onAction="#startNewGame" GridPane.columnIndex="0" GridPane.rowIndex="3"
+            maxWidth="Infinity"/>
+    <Button fx:id="loadLastGame" text="Load last game" onAction="#loadLastGame" GridPane.columnIndex="0"
+            GridPane.rowIndex="4" maxWidth="Infinity"/>
+    <Button fx:id="instructions" text="Instructions" onAction="#showInstructions" GridPane.columnIndex="0"
+            GridPane.rowIndex="5" maxWidth="Infinity"/>
+    <Button fx:id="about" text="About" onAction="#showAboutScreen" GridPane.columnIndex="0" GridPane.rowIndex="15"
+            maxWidth="Infinity"/>
+</GridPane>
