@@ -98,7 +98,7 @@ public class Cell {
             case FLAG:
             case NUMBER:
             case HIT_MINE:
-                return;
+                break;
             case UNOPENED:
             case QUESTION_MARK:
                 if (getNeighborMines() == 0) {
@@ -110,7 +110,6 @@ public class Cell {
                 this.type = CellType.HIT_MINE;
                 // TODO: Game lost
         }
-
     }
 
     public int getNeighborMines() {
@@ -122,7 +121,8 @@ public class Cell {
             return neighborMines;
         }
 
-        throw new NotImplementedException();
+        return 0;
+        // throw new NotImplementedException();
     }
 
     private void setContent(CellType type, int number) {
@@ -141,9 +141,6 @@ public class Cell {
                 break;
             case HIT_MINE:
                 this.content = Settings.CellContents.HIT_MINE;
-                break;
-            case FLAG:
-                this.content = Settings.CellContents.FLAG;
                 break;
             case QUESTION_MARK:
                 this.content = Settings.CellContents.QUESTION_MARK;

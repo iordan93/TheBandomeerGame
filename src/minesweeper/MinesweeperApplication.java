@@ -1,5 +1,3 @@
-
-
 package minesweeper;
 
 import javafx.fxml.FXMLLoader;
