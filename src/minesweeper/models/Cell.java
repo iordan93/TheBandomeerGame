@@ -9,13 +9,12 @@ public class Cell {
     private CellType type;
     private int content;
     private boolean isVisited;
-    private boolean isMine;
     private boolean isFlagged;
     private boolean isQuestionMark;
     private int neighborMines = -1;
     private MineField mineField;
 
-    public Cell(MineField mineField, int row, int column, CellType type, boolean isMine) {
+    public Cell(MineField mineField, int row, int column, CellType type) {
         // TODO: Check row and col against minefield constraints
         this.mineField = mineField;
         this.row = row;
@@ -23,11 +22,6 @@ public class Cell {
         this.type = type;
         int mines = getNeighborMines();
         this.setContent(type, mines);
-        this.isMine = isMine;
-    }
-
-    public Cell(MineField mineField, int row, int column, CellType type) {
-        this(mineField, row, column, type, false);
     }
 
     // region Properties
@@ -52,11 +46,12 @@ public class Cell {
     }
 
     public boolean isMine() {
-        return isMine;
+        return this.type == CellType.MINE;
     }
 
     public void makeMine() {
-        this.isMine = true;
+        this.type = CellType.MINE;
+        setContent(CellType.MINE, 0);
     }
 
     public boolean isFlagged() {
