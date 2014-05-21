@@ -52,7 +52,9 @@ public class MineField {
         for (int i = 0; i < this.mines; i++) {
             int currentRow = generator.nextInt(rows);
             int currentCol = generator.nextInt(columns);
-            if (!this.cells[currentRow][currentCol].isMine()) {
+            if ((currentRow == noMineRow && currentCol == noMineCol) || this.cells[currentRow][currentCol].isMine()) {
+                i--;
+            } else {
                 this.cells[currentRow][currentCol].makeMine();
             }
         }
