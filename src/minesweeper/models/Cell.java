@@ -87,15 +87,15 @@ public class Cell {
                 break;
             case UNOPENED:
             case QUESTION_MARK:
-                if (getNeighborMines() == 0) {
-                	for(int i = -1 ; i < 2 ; i++){
-                    	for(int y = - 1; y < 2 ; y++){
-                    		if(){
-                    		}
-                    		
-                    	}
-                    }
-                }
+//                if (getNeighborMines() == 0) {
+//                    for (int i = -1; i < 2; i++) {
+//                        for (int y = -1; y < 2; y++) {
+//                            if () {
+//                            }
+//
+//                        }
+//                    }
+//                }
 
                 this.type = CellType.NUMBER;
             case MINE:
@@ -106,17 +106,16 @@ public class Cell {
 
     public int getNeighborMines() {
         if (neighborMines == -1) {
-            for(int i = -1 ; i < 2 ; i++){
-            	for(int y = - 1; y < 2 ; y++){
-            		if(this.MineField.getCellat(this.row + i , this.column + y).isMine()){
-            			neighbourMines++;
-            		}           		
-            	}
+            for (int i = -1; i < 2; i++) {
+                for (int y = -1; y < 2; y++) {
+                    if (this.mineField.getCellAt(this.row + i, this.column + y).isMine()) {
+                        neighborMines++;
+                    }
+                }
             }
-        } else {
-            return neighborMines;
         }
 
+        return neighborMines;
     }
 
     private void setContent(CellType type, int number) {
