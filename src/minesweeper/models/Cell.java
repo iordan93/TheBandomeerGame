@@ -8,9 +8,6 @@ public class Cell {
     private int column;
     private CellType type;
     private int content;
-    private boolean isVisited;
-    private boolean isFlagged;
-    private boolean isQuestionMark;
     private int neighborMines = -1;
     private MineField mineField;
 
@@ -42,7 +39,7 @@ public class Cell {
     }
 
     public boolean isVisited() {
-        return isVisited;
+        return this.type == CellType.NUMBER || this.type == CellType.HIT_MINE;
     }
 
     public boolean isMine() {
@@ -55,37 +52,31 @@ public class Cell {
     }
 
     public boolean isFlagged() {
-        return isFlagged;
+        return this.type == CellType.FLAG || this.type == CellType.FLAGGED_MINE;
     }
 
     public void flag() {
-        if (!this.isFlagged && !this.isQuestionMark) {
-            this.isFlagged = true;
-        }
-    }
-
-    public void unflag() {
-        if (this.isFlagged) {
-            this.isFlagged = false;
-        }
+        if (this.type == CellType.UNOPENED)
+            if (this.isMine()) {
+                this.type = CellType.FLAGGED_MINE;
+                setContent(CellType.FLAGGED_MINE, 0);
+            } else {
+                this.type = CellType.FLAG;
+                setContent(CellType.FLAG, 0);
+            }
     }
 
     public boolean isQuestionMark() {
-        return isQuestionMark;
+        return this.type == CellType.QUESTION_MARK;
     }
 
     public void placeQuestionMark() {
-        if (this.isFlagged) {
-            this.isQuestionMark = true;
+        if (this.isFlagged()) {
+            this.type = CellType.QUESTION_MARK;
+            setContent(CellType.QUESTION_MARK, 0);
         }
     }
-
-    public void removeQuestionMark() {
-        if (this.isQuestionMark) {
-            this.isQuestionMark = false;
-        }
-    }
-    //endregion
+    // endregion
 
     public void visit() {
         switch (this.type) {
@@ -116,8 +107,7 @@ public class Cell {
             return neighborMines;
         }
 
-        return 0;
-        // throw new NotImplementedException();
+        throw new NotImplementedException();
     }
 
     private void setContent(CellType type, int number) {
