@@ -88,7 +88,13 @@ public class Cell {
             case UNOPENED:
             case QUESTION_MARK:
                 if (getNeighborMines() == 0) {
-                    // TODO: Recursively open this and the neighboring cells (this can be a method of the MineField class)
+                	for(int i = -1 ; i < 2 ; i++){
+                    	for(int y = - 1; y < 2 ; y++){
+                    		if(){
+                    		}
+                    		
+                    	}
+                    }
                 }
 
                 this.type = CellType.NUMBER;
@@ -100,14 +106,17 @@ public class Cell {
 
     public int getNeighborMines() {
         if (neighborMines == -1) {
-            /* TODO: Calculate neighbor mines with respect to the cell's minefield
-            Don't forget to set the field this.neighborMines before returning it:
-            neighborMines = ...;*/
+            for(int i = -1 ; i < 2 ; i++){
+            	for(int y = - 1; y < 2 ; y++){
+            		if(this.MineField.getCellat(this.row + i , this.column + y).isMine()){
+            			neighbourMines++;
+            		}           		
+            	}
+            }
         } else {
             return neighborMines;
         }
 
-        throw new NotImplementedException();
     }
 
     private void setContent(CellType type, int number) {
