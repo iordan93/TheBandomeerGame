@@ -1,7 +1,6 @@
 package minesweeper.models;
 
 import minesweeper.Settings;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class Cell {
     private int row;
@@ -17,8 +16,8 @@ public class Cell {
         this.row = row;
         this.column = column;
         this.type = type;
-        int mines = getNeighborMines();
-        this.setContent(type, mines);
+        // int mines = getNeighborMines();
+        // this.setContent(type, mines);
     }
 
     // region Properties
@@ -56,9 +55,10 @@ public class Cell {
     }
 
     public void flag() {
-        if (this.type == CellType.UNOPENED)
+        if (!this.isVisited())
             if (this.isMine()) {
                 this.type = CellType.FLAGGED_MINE;
+                this.mineField.setRemainingMinesCount(this.mineField.getRemainingMinesCount() - 1);
                 setContent(CellType.FLAGGED_MINE, 0);
             } else {
                 this.type = CellType.FLAG;
@@ -87,28 +87,38 @@ public class Cell {
                 break;
             case UNOPENED:
             case QUESTION_MARK:
-//                if (getNeighborMines() == 0) {
-//                    for (int i = -1; i < 2; i++) {
-//                        for (int y = -1; y < 2; y++) {
-//                            if () {
-//                            }
-//
-//                        }
-//                    }
-//                }
-
+                int mines = this.getNeighborMines();
                 this.type = CellType.NUMBER;
+                setContent(CellType.NUMBER, mines);
+
+                if (mines == 0) {
+                    for (int x = -1; x < 2; x++) {
+                        for (int y = -1; y < 2; y++) {
+                            if (isWithinBounds(this.row + x, this.column + y)) {
+                                Cell currentCell = this.mineField.getCellAt(this.row + x, this.column + y);
+                                if (currentCell.type == CellType.UNOPENED ||
+                                        currentCell.isQuestionMark()) {
+                                    currentCell.visit();
+                                }
+                            }
+                        }
+                    }
+                }
+                break;
             case MINE:
                 this.type = CellType.HIT_MINE;
-                // TODO: Game lost
+                this.mineField.setState(GameState.LOST);
+                break;
         }
     }
 
     public int getNeighborMines() {
         if (neighborMines == -1) {
-            for (int i = -1; i < 2; i++) {
+            neighborMines = 0;
+            for (int x = -1; x < 2; x++) {
                 for (int y = -1; y < 2; y++) {
-                    if (this.mineField.getCellAt(this.row + i, this.column + y).isMine()) {
+                    if (isWithinBounds(this.row + x, this.column + y) &&
+                            this.mineField.getCellAt(this.row + x, this.column + y).isMine()) {
                         neighborMines++;
                     }
                 }
@@ -139,5 +149,9 @@ public class Cell {
                 this.content = Settings.CellContents.QUESTION_MARK;
                 break;
         }
+    }
+
+    private boolean isWithinBounds(int row, int column) {
+        return row >= 0 && row < this.mineField.getRows() && column >= 0 && column < this.mineField.getColumns();
     }
 }
