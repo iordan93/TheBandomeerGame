@@ -12,15 +12,15 @@ public class MineField {
     private int mines;
     private Cell[][] cells;
     private GameState state;
-    private Random generator;
+    private Random random;
     private List<IMineFieldUpdater> fieldUpdaters;
 
-    public MineField(int rows, int columns, int mines, Random generator) {
+    public MineField(int rows, int columns, int mines, Random random) {
         // TODO: Check arguments, throw exceptions where appropriate
         this.rows = rows;
         this.columns = columns;
         this.mines = mines;
-        this.generator = generator;
+        this.random = random;
         this.cells = new Cell[rows][columns];
         this.fieldUpdaters = new ArrayList<>();
 
@@ -50,8 +50,10 @@ public class MineField {
         }
 
         for (int i = 0; i < this.mines; i++) {
-            int currentRow = generator.nextInt(rows);
-            int currentCol = generator.nextInt(columns);
+
+            int currentRow = random.nextInt(rows);
+            int currentCol = random.nextInt(columns);
+
             if ((currentRow == noMineRow && currentCol == noMineCol) || this.cells[currentRow][currentCol].isMine()) {
                 i--;
             } else {
