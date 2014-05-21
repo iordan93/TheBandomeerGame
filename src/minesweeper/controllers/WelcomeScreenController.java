@@ -24,8 +24,8 @@ public class WelcomeScreenController {
     public void startNewGame(ActionEvent action) throws Exception {
         Stage stage = new Stage();
         ((Node) action.getSource()).getScene().getWindow().hide();
-        MainGameController.startNewGame(stage);
-        new MinesweeperApplication().start(stage, getClass().getResource("../views/mainWindow.fxml"));
+        Parent root = new MinesweeperApplication().start(stage, getClass().getResource("../views/mainWindow.fxml"));
+        new MainGameController().initialize();
     }
 
     public void loadLastGame(ActionEvent action) {

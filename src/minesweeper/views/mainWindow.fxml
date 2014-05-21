@@ -1,8 +1,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
 <AnchorPane fx:controller="minesweeper.controllers.MainGameController"
-          xmlns:fx="http://javafx.com/fxml" stylesheets="@../res/stylesheets/mainWindow.css"
-          minWidth="300">
+            xmlns:fx="http://javafx.com/fxml" stylesheets="@../res/stylesheets/mainWindow.css"
+            minWidth="300">
     <MenuBar>
         <Menu text="GAME">
             <MenuItem text="New Game"/>
@@ -18,4 +19,9 @@
             <MenuItem text="About"/>
         </Menu>
     </MenuBar>
+    <GridPane fx:id="mainContent" hgap="10" vgap="10" alignment="CENTER">
+        <children>
+            <Button text="dfsf"></Button>
+        </children>
+    </GridPane>
 </AnchorPane>

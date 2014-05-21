@@ -1,24 +1,26 @@
 package minesweeper.controllers;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
+import javafx.scene.layout.GridPane;
+import minesweeper.Settings;
+import minesweeper.models.MineField;
+
 
 public class MainGameController {
 
+    @FXML
+    public GridPane mainContent;
 
-    public static void startNewGame(Stage primaryStage) {
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(event -> System.out.println("Hello World!"));
-
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
-        primaryStage.setScene(new Scene(root, 300, 250));
-        primaryStage.show();
+    @FXML
+    public void initialize() {
+        MineField field = new MineField(Settings.INITIAL_ROWS, Settings.INITIAL_COLS, Settings.INITIAL_MINES);
+        Button[][] buttons = new Button[Settings.INITIAL_ROWS][Settings.INITIAL_COLS];
+//        for (int i = 0; i < buttons.length; i++) {
+//            for (int j = 0; j < buttons[0].length; j++) {
+//                mainContent.getChildren().add(buttons[i][j]);
+//            }
+//        }
     }
 }
