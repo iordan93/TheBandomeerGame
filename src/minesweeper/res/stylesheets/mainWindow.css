@@ -10,6 +10,10 @@
     -fx-text-fill: rgba(0, 0, 0, 0.7);
 }
 
+.button {
+    -fx-padding: 0;
+}
+
 .menu-bar {
      -fx-font-family: "Segoe UI";
      -fx-font-size: 12px;
