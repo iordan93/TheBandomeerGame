@@ -1,8 +1,9 @@
 package minesweeper.models;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.RunnableFuture;
+import java.util.concurrent.ScheduledExecutorService;
 
 public class MineField {
     private int rows;
@@ -57,7 +58,7 @@ public class MineField {
         int count = this.rows * this.columns;
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.columns; j++) {
-                if (this.cells[i][j].isVisited() || this.cells[i][j].getType() == CellType.FLAGGED_MINE){
+                if (this.cells[i][j].isVisited() || this.cells[i][j].getType() == CellType.FLAGGED_MINE) {
                     count--;
                 }
             }
@@ -74,7 +75,7 @@ public class MineField {
         this.cells[row][column] = cell;
     }
 
-    public void setState(GameState state){
+    public void setState(GameState state) {
         this.state = state;
     }
     // endregion
@@ -116,7 +117,7 @@ public class MineField {
         return remainingMinesCount == 0 || getRemainingFieldsCount() == this.mines;
     }
 
-    private boolean isGameOver(){
+    private boolean isGameOver() {
         return isGameWon() || this.state == GameState.LOST;
     }
 
@@ -157,4 +158,5 @@ public class MineField {
 
         return sb.toString();
     }
+
 }

@@ -12,6 +12,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import minesweeper.Settings;
@@ -20,8 +21,9 @@ import minesweeper.models.CellType;
 import minesweeper.models.CoordsButton;
 import minesweeper.models.MineField;
 
-import java.io.InputStream;
-
+import java.io.*;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainGameController {
 
@@ -30,6 +32,9 @@ public class MainGameController {
     public Label remainingMinesLabel;
     boolean isFirstClick = true;
     int remainingMines;
+    int wonGames = 0;
+    int lostGames = 0;
+    int elapsedTime = 0;
     MineField field;
     Button[][] buttons;
 
@@ -110,6 +115,7 @@ public class MainGameController {
     }
 
     private void winGame() {
+        writeStatistic(true);
         Stage newStage = new Stage();
         VBox comp = new VBox();
         Label winLabel = new Label("You won!");
@@ -132,6 +138,7 @@ public class MainGameController {
     }
 
     private void loseGame() {
+        writeStatistic(false);
         Stage newStage = new Stage();
         VBox comp = new VBox();
         Label loseLabel = new Label("You lost!");
@@ -211,7 +218,36 @@ public class MainGameController {
         initialize();
     }
 
-    public void showStatistics(ActionEvent actionEvent) {
+    public void showStatistics(ActionEvent actionEvent) throws IOException {
+        Stage newStage = new Stage();
+        VBox comp = new VBox();
+        Text heading = new Text("Current session stats:");
+        heading.setStyle("-fx-font-weight: bold; \n" +
+                "-fx-font-size: 20px; \n" +
+                "-fx-padding: 50px;");
+        double percentage = (wonGames * 100.0) / (wonGames + lostGames);
+        Text statsText = new Text(
+                String.format("Won games: %d\nLost games: %d\nPercentage won: %.2f%%",
+                        wonGames,
+                        lostGames,
+                        wonGames + lostGames == 0 ? 0 : percentage)
+        );
+        statsText.setStyle("-fx-text-fill: #ff0000; \n" +
+                "-fx-font-weight: bold; \n" +
+                "-fx-font-size: 15px; \n" +
+                "-fx-padding: 50px");
+        comp.getChildren().add(statsText);
 
+        Scene stageScene = new Scene(comp);
+        newStage.setScene(stageScene);
+        newStage.show();
+    }
+
+    private void writeStatistic(boolean win) {
+        if (win) {
+            wonGames++;
+        } else {
+            lostGames++;
+        }
     }
 }

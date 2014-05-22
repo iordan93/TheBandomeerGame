@@ -2,8 +2,8 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.geometry.Insets?>
 <GridPane fx:controller="minesweeper.controllers.MainGameController"
-            xmlns:fx="http://javafx.com/fxml" stylesheets="@../res/stylesheets/mainWindow.css"
-            minWidth="0">
+          xmlns:fx="http://javafx.com/fxml" stylesheets="@../res/stylesheets/mainWindow.css"
+          minWidth="0">
     <MenuBar GridPane.rowIndex="0">
         <Menu text="GAME">
             <MenuItem text="New Game" onAction="#newGame"/>
