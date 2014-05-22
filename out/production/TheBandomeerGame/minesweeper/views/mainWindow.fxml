@@ -6,7 +6,7 @@
             minWidth="0">
     <MenuBar GridPane.rowIndex="0">
         <Menu text="GAME">
-            <MenuItem text="New Game"/>
+            <MenuItem text="New Game" onAction="#newGame"/>
             <SeparatorMenuItem/>
             <MenuItem text="Statistics"/>
             <MenuItem text="Options"/>
@@ -14,9 +14,9 @@
             <MenuItem text="Exit"/>
         </Menu>
         <Menu text="HELP">
-            <MenuItem text="Instructions"/>
+            <MenuItem text="Instructions" onAction="#showInstructions"/>
             <SeparatorMenuItem/>
-            <MenuItem text="About"/>
+            <MenuItem text="About" onAction="#showAboutScreen"/>
         </Menu>
     </MenuBar>
     <GridPane fx:id="mainContent" hgap="2" vgap="2" alignment="CENTER" GridPane.rowIndex="1">

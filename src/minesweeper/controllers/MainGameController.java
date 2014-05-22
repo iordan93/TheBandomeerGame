@@ -1,13 +1,18 @@
 package minesweeper.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import minesweeper.Settings;
 import minesweeper.models.Cell;
 import minesweeper.models.CellType;
@@ -27,7 +32,8 @@ public class MainGameController {
 
     @FXML
     public void initialize() {
-        field = new MineField(Settings.INITIAL_ROWS, Settings.INITIAL_COLS, Settings.INITIAL_MINES, new Random(10));
+        isFirstClick = true;
+        field = new MineField(Settings.INITIAL_ROWS, Settings.INITIAL_COLS, Settings.INITIAL_MINES);
         buttons = new Button[Settings.INITIAL_ROWS][Settings.INITIAL_COLS];
         for (int i = 0; i < field.getRows(); i++) {
             for (int j = 0; j < field.getColumns(); j++) {
@@ -51,6 +57,7 @@ public class MainGameController {
 
                             if (currentCell.isMine() || currentCell.getType() == CellType.HIT_MINE) {
                                 updateField(true);
+                                loseGame();
                             } else {
                                 updateField(false);
                             }
@@ -84,6 +91,44 @@ public class MainGameController {
                 buttons[i][j].setGraphic(new ImageView(new Image(getImageString(currentCell, showMines))));
             }
         }
+
+        if (field.isGameWon()) {
+            winGame();
+        }
+    }
+
+    private void winGame() {
+        Stage newStage = new Stage();
+        VBox comp = new VBox();
+        Label winLabel = new Label("You won!");
+        winLabel.setStyle("-fx-text-fill: #00ff00; \n" +
+                "-fx-font-weight: bold; \n" +
+                "-fx-font-size: 32px; \n" +
+                "-fx-padding: 50px");
+        comp.getChildren().add(winLabel);
+
+        Scene stageScene = new Scene(comp);
+        newStage.setScene(stageScene);
+        newStage.show();
+
+        initialize();
+    }
+
+    private void loseGame() {
+        Stage newStage = new Stage();
+        VBox comp = new VBox();
+        Label loseLabel = new Label("You lost!");
+        loseLabel.setStyle("-fx-text-fill: #ff0000; \n" +
+                "-fx-font-weight: bold; \n" +
+                "-fx-font-size: 32px; \n" +
+                "-fx-padding: 50px");
+        comp.getChildren().add(loseLabel);
+
+        Scene stageScene = new Scene(comp);
+        newStage.setScene(stageScene);
+        newStage.show();
+
+        initialize();
     }
 
     private InputStream getImageString(Cell currentCell, boolean showMines) {
@@ -130,5 +175,17 @@ public class MainGameController {
 
         // This should never happen
         throw new IllegalArgumentException("The cell type is not valid.");
+    }
+
+    public void showInstructions(ActionEvent actionEvent) {
+        new WelcomeScreenController().showInstructions(actionEvent);
+    }
+
+    public void showAboutScreen(ActionEvent actionEvent) {
+        new WelcomeScreenController().showAboutScreen(actionEvent);
+    }
+
+    public void newGame(ActionEvent actionEvent) {
+        initialize();
     }
 }

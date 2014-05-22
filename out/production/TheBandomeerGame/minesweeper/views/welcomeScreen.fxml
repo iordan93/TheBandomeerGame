@@ -16,8 +16,6 @@
     <Separator GridPane.columnIndex="0" GridPane.rowIndex="2" halignment="CENTER"/>
     <Button fx:id="newGame" text="New game" onAction="#startNewGame" GridPane.columnIndex="0" GridPane.rowIndex="3"
             maxWidth="Infinity"/>
-    <Button fx:id="loadLastGame" text="Load last game" onAction="#loadLastGame" GridPane.columnIndex="0"
-            GridPane.rowIndex="4" maxWidth="Infinity"/>
     <Button fx:id="instructions" text="Instructions" onAction="#showInstructions" GridPane.columnIndex="0"
             GridPane.rowIndex="5" maxWidth="Infinity"/>
     <Button fx:id="about" text="About" onAction="#showAboutScreen" GridPane.columnIndex="0" GridPane.rowIndex="15"

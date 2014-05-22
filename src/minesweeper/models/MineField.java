@@ -113,7 +113,7 @@ public class MineField {
         }
     }
 
-    private boolean isGameWon() {
+    public boolean isGameWon() {
         return remainingMinesCount == 0 || getRemainingFieldsCount() == this.mines;
     }
 
