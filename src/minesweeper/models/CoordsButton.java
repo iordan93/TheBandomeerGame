@@ -1,4 +1,4 @@
-package minesweeper.controllers;
+package minesweeper.models;
 
 import javafx.scene.control.Button;
 

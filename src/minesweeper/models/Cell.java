@@ -11,7 +11,6 @@ public class Cell {
     private MineField mineField;
 
     public Cell(MineField mineField, int row, int column, CellType type) {
-        // TODO: Check row and col against minefield constraints
         this.mineField = mineField;
         this.row = row;
         this.column = column;
@@ -42,7 +41,9 @@ public class Cell {
     }
 
     public boolean isMine() {
-        return this.type == CellType.MINE;
+        return this.content == Settings.CellContents.MINE ||
+                this.content == Settings.CellContents.FLAGGED_MINE ||
+                this.content == Settings.CellContents.HIT_MINE;
     }
 
     public void makeMine() {
@@ -73,10 +74,11 @@ public class Cell {
     public void toggleQuestionMark() {
         if (this.isFlagged()) {
             this.type = CellType.QUESTION_MARK;
-            setContent(CellType.QUESTION_MARK, 0);
+            if (this.isMine()) {
+                this.mineField.setRemainingMinesCount(this.mineField.getRemainingMinesCount() + 1);
+            }
         } else if (this.isQuestionMark()) {
             this.type = CellType.UNOPENED;
-            setContent(CellType.UNOPENED, 0);
         }
     }
     // endregion
@@ -88,8 +90,16 @@ public class Cell {
             case NUMBER:
             case HIT_MINE:
                 break;
+            case MINE:
+                hitMineAndLose();
+                break;
             case UNOPENED:
             case QUESTION_MARK:
+                if(this.isMine()){
+                    hitMineAndLose();
+                    break;
+                }
+
                 int mines = this.getNeighborMines();
                 this.type = CellType.NUMBER;
                 setContent(CellType.NUMBER, mines);
@@ -108,11 +118,12 @@ public class Cell {
                     }
                 }
                 break;
-            case MINE:
-                this.type = CellType.HIT_MINE;
-                this.mineField.setState(GameState.LOST);
-                break;
         }
+    }
+
+    private void hitMineAndLose() {
+        this.type = CellType.HIT_MINE;
+        this.mineField.setState(GameState.LOST);
     }
 
     public int getNeighborMines() {

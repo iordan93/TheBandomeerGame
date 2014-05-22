@@ -16,7 +16,6 @@ public class MineField {
     private List<IMineFieldUpdater> fieldUpdaters;
 
     public MineField(int rows, int columns, int mines, Random random) {
-        // TODO: Check arguments, throw exceptions where appropriate
         this.rows = rows;
         this.columns = columns;
         this.mines = mines;
@@ -51,7 +50,6 @@ public class MineField {
         this.remainingMinesCount = remainingMinesCount;
     }
 
-    // TODO: Optimize if possible
     public int getRemainingFieldsCount() {
         int count = this.rows * this.columns;
         for (int i = 0; i < this.rows; i++) {
@@ -77,8 +75,6 @@ public class MineField {
         this.state = state;
     }
     // endregion
-
-    // TODO: Logic for cell interaction; logic for game management (change of status)
 
     private void initialize() {
         for (int row = 0; row < this.rows; row++) {

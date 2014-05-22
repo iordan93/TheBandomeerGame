@@ -8,7 +8,7 @@
         <Menu text="GAME">
             <MenuItem text="New Game" onAction="#newGame"/>
             <SeparatorMenuItem/>
-            <MenuItem text="Statistics"/>
+            <MenuItem text="Statistics" onAction="#showStatistics"/>
             <MenuItem text="Options"/>
             <SeparatorMenuItem/>
             <MenuItem text="Exit"/>

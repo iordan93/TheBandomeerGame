@@ -13,13 +13,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import minesweeper.Settings;
 import minesweeper.models.Cell;
 import minesweeper.models.CellType;
+import minesweeper.models.CoordsButton;
 import minesweeper.models.MineField;
 
 import java.io.InputStream;
-import java.util.Random;
 
 
 public class MainGameController {
@@ -111,7 +112,12 @@ public class MainGameController {
         newStage.setScene(stageScene);
         newStage.show();
 
-        initialize();
+        newStage.setOnHiding(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                initialize();
+            }
+        });
     }
 
     private void loseGame() {
@@ -128,7 +134,12 @@ public class MainGameController {
         newStage.setScene(stageScene);
         newStage.show();
 
-        initialize();
+        newStage.setOnHiding(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                initialize();
+            }
+        });
     }
 
     private InputStream getImageString(Cell currentCell, boolean showMines) {
@@ -187,5 +198,9 @@ public class MainGameController {
 
     public void newGame(ActionEvent actionEvent) {
         initialize();
+    }
+
+    public void showStatistics(ActionEvent actionEvent) {
+
     }
 }
