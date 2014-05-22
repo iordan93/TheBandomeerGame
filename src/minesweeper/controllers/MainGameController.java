@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import minesweeper.Settings;
 import minesweeper.models.Cell;
+import minesweeper.models.CellType;
 import minesweeper.models.MineField;
 
 import java.io.InputStream;
@@ -20,14 +21,13 @@ public class MainGameController {
 
     @FXML
     public GridPane mainContent;
-
+    boolean isFirstClick = true;
     MineField field;
     Button[][] buttons;
 
     @FXML
     public void initialize() {
         field = new MineField(Settings.INITIAL_ROWS, Settings.INITIAL_COLS, Settings.INITIAL_MINES, new Random(10));
-        field.placeMines(0, 0);
         buttons = new Button[Settings.INITIAL_ROWS][Settings.INITIAL_COLS];
         for (int i = 0; i < field.getRows(); i++) {
             for (int j = 0; j < field.getColumns(); j++) {
@@ -39,10 +39,23 @@ public class MainGameController {
                     @Override
                     public void handle(MouseEvent event) {
                         CoordsButton btn = (CoordsButton) event.getTarget();
+                        Cell currentCell;
                         if (event.getButton() == MouseButton.PRIMARY) {
-                            field.getCellAt(btn.getRow(), btn.getCol()).visit();
+                            if (isFirstClick) {
+                                field.placeMines(btn.getRow(), btn.getCol());
+                                isFirstClick = false;
+                            }
+
+                            currentCell = field.getCellAt(btn.getRow(), btn.getCol());
+                            currentCell.visit();
+
+                            if (currentCell.isMine() || currentCell.getType() == CellType.HIT_MINE) {
+                                updateField(true);
+                            } else {
+                                updateField(false);
+                            }
                         } else if (event.getButton() == MouseButton.SECONDARY) {
-                            Cell currentCell = field.getCellAt(btn.getRow(), btn.getCol());
+                            currentCell = field.getCellAt(btn.getRow(), btn.getCol());
                             if (currentCell.isFlagged()) {
                                 currentCell.toggleQuestionMark();
                             } else if (currentCell.isQuestionMark()) {
@@ -50,9 +63,9 @@ public class MainGameController {
                             } else {
                                 currentCell.flag();
                             }
-                        }
 
-                        updateField();
+                            updateField(false);
+                        }
                     }
                 });
 
@@ -64,16 +77,16 @@ public class MainGameController {
         }
     }
 
-    private void updateField() {
+    private void updateField(boolean showMines) {
         for (int i = 0; i < field.getRows(); i++) {
             for (int j = 0; j < field.getColumns(); j++) {
                 Cell currentCell = field.getCellAt(i, j);
-                buttons[i][j].setGraphic(new ImageView(new Image(getImageString(currentCell))));
+                buttons[i][j].setGraphic(new ImageView(new Image(getImageString(currentCell, showMines))));
             }
         }
     }
 
-    private InputStream getImageString(Cell currentCell) {
+    private InputStream getImageString(Cell currentCell, boolean showMines) {
         switch (currentCell.getType()) {
             case UNOPENED:
                 return getClass().getResourceAsStream("../res/images/sqt0.gif");
@@ -100,11 +113,15 @@ public class MainGameController {
                 }
                 break;
             case MINE:
-                return getClass().getResourceAsStream("../res/images/sqt0.gif");
+                if (showMines) {
+                    return getClass().getResourceAsStream("../res/images/mine.gif");
+                } else {
+                    return getClass().getResourceAsStream("../res/images/sqt0.gif");
+                }
             case FLAGGED_MINE:
                 return getClass().getResourceAsStream("../res/images/sqt1.gif");
             case HIT_MINE:
-                return getClass().getResourceAsStream("../res/images/mine.gif");
+                return getClass().getResourceAsStream("../res/images/minered.gif");
             case FLAG:
                 return getClass().getResourceAsStream("../res/images/sqt1.gif");
             case QUESTION_MARK:
