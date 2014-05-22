@@ -41,6 +41,9 @@ public class MineField {
         return columns;
     }
 
+    public int getMines() {
+        return mines;
+    }
 
     public int getRemainingMinesCount() {
         return remainingMinesCount;

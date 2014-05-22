@@ -14,6 +14,12 @@
     -fx-padding: 0;
 }
 
+#remainingMinesLabel {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 0 15px;
+}
+
 .menu-bar {
      -fx-font-family: "Segoe UI";
      -fx-font-size: 12px;

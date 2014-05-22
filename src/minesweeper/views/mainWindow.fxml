@@ -25,4 +25,5 @@
             </Insets>
         </padding>
     </GridPane>
+    <Label fx:id="remainingMinesLabel" GridPane.rowIndex="2"/>
 </GridPane>

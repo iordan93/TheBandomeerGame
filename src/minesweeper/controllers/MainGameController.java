@@ -27,7 +27,9 @@ public class MainGameController {
 
     @FXML
     public GridPane mainContent;
+    public Label remainingMinesLabel;
     boolean isFirstClick = true;
+    int remainingMines;
     MineField field;
     Button[][] buttons;
 
@@ -35,6 +37,8 @@ public class MainGameController {
     public void initialize() {
         isFirstClick = true;
         field = new MineField(Settings.INITIAL_ROWS, Settings.INITIAL_COLS, Settings.INITIAL_MINES);
+        remainingMines = field.getMines();
+        updateRemainingMines();
         buttons = new Button[Settings.INITIAL_ROWS][Settings.INITIAL_COLS];
         for (int i = 0; i < field.getRows(); i++) {
             for (int j = 0; j < field.getColumns(); j++) {
@@ -66,10 +70,12 @@ public class MainGameController {
                             currentCell = field.getCellAt(btn.getRow(), btn.getCol());
                             if (currentCell.isFlagged()) {
                                 currentCell.toggleQuestionMark();
+                                remainingMines++;
                             } else if (currentCell.isQuestionMark()) {
                                 currentCell.toggleQuestionMark();
                             } else {
                                 currentCell.flag();
+                                remainingMines--;
                             }
 
                             updateField(false);
@@ -85,7 +91,12 @@ public class MainGameController {
         }
     }
 
+    private void updateRemainingMines() {
+        remainingMinesLabel.setText("Remaining mines: " + Math.max(remainingMines, 0));
+    }
+
     private void updateField(boolean showMines) {
+        updateRemainingMines();
         for (int i = 0; i < field.getRows(); i++) {
             for (int j = 0; j < field.getColumns(); j++) {
                 Cell currentCell = field.getCellAt(i, j);
