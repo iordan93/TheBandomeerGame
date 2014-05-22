@@ -1,11 +1,12 @@
 package minesweeper.controllers;
 
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import minesweeper.Settings;
 import minesweeper.models.Cell;
@@ -33,11 +34,24 @@ public class MainGameController {
                 CoordsButton currentButton = new CoordsButton();
                 currentButton.setRow(i);
                 currentButton.setCol(j);
-                currentButton.setOnAction(new EventHandler<ActionEvent>() {
+
+                currentButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
-                    public void handle(ActionEvent event) {
+                    public void handle(MouseEvent event) {
                         CoordsButton btn = (CoordsButton) event.getTarget();
-                        field.getCellAt(btn.getRow(), btn.getCol()).visit();
+                        if (event.getButton() == MouseButton.PRIMARY) {
+                            field.getCellAt(btn.getRow(), btn.getCol()).visit();
+                        } else if (event.getButton() == MouseButton.SECONDARY) {
+                            Cell currentCell = field.getCellAt(btn.getRow(), btn.getCol());
+                            if (currentCell.isFlagged()) {
+                                currentCell.toggleQuestionMark();
+                            } else if (currentCell.isQuestionMark()) {
+                                currentCell.toggleQuestionMark();
+                            } else {
+                                currentCell.flag();
+                            }
+                        }
+
                         updateField();
                     }
                 });
@@ -53,27 +67,36 @@ public class MainGameController {
     private void updateField() {
         for (int i = 0; i < field.getRows(); i++) {
             for (int j = 0; j < field.getColumns(); j++) {
-                Cell currentCell = field.getCellAt(i,j);
+                Cell currentCell = field.getCellAt(i, j);
                 buttons[i][j].setGraphic(new ImageView(new Image(getImageString(currentCell))));
             }
         }
     }
 
-    private InputStream getImageString(Cell currentCell){
-        switch (currentCell.getType()){
+    private InputStream getImageString(Cell currentCell) {
+        switch (currentCell.getType()) {
             case UNOPENED:
                 return getClass().getResourceAsStream("../res/images/sqt0.gif");
             case NUMBER:
-                switch (currentCell.getContent()){
-                    case 0: return getClass().getResourceAsStream("../res/images/sq0.gif");
-                    case 1: return getClass().getResourceAsStream("../res/images/sq1.gif");
-                    case 2: return getClass().getResourceAsStream("../res/images/sq2.gif");
-                    case 3: return getClass().getResourceAsStream("../res/images/sq3.gif");
-                    case 4: return getClass().getResourceAsStream("../res/images/sq4.gif");
-                    case 5: return getClass().getResourceAsStream("../res/images/sq5.gif");
-                    case 6: return getClass().getResourceAsStream("../res/images/sq6.gif");
-                    case 7: return getClass().getResourceAsStream("../res/images/sq7.gif");
-                    case 8: return getClass().getResourceAsStream("../res/images/sq8.gif");
+                switch (currentCell.getContent()) {
+                    case 0:
+                        return getClass().getResourceAsStream("../res/images/sq0.gif");
+                    case 1:
+                        return getClass().getResourceAsStream("../res/images/sq1.gif");
+                    case 2:
+                        return getClass().getResourceAsStream("../res/images/sq2.gif");
+                    case 3:
+                        return getClass().getResourceAsStream("../res/images/sq3.gif");
+                    case 4:
+                        return getClass().getResourceAsStream("../res/images/sq4.gif");
+                    case 5:
+                        return getClass().getResourceAsStream("../res/images/sq5.gif");
+                    case 6:
+                        return getClass().getResourceAsStream("../res/images/sq6.gif");
+                    case 7:
+                        return getClass().getResourceAsStream("../res/images/sq7.gif");
+                    case 8:
+                        return getClass().getResourceAsStream("../res/images/sq8.gif");
                 }
                 break;
             case MINE:

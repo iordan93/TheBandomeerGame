@@ -70,10 +70,13 @@ public class Cell {
         return this.type == CellType.QUESTION_MARK;
     }
 
-    public void placeQuestionMark() {
+    public void toggleQuestionMark() {
         if (this.isFlagged()) {
             this.type = CellType.QUESTION_MARK;
             setContent(CellType.QUESTION_MARK, 0);
+        } else if (this.isQuestionMark()) {
+            this.type = CellType.UNOPENED;
+            setContent(CellType.UNOPENED, 0);
         }
     }
     // endregion
